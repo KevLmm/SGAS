@@ -3,8 +3,8 @@ package ui;
 import javax.swing.*;
 import java.awt.*;
 //imports Backend data and selection class
-import data.Dataset;
-import selection.*;
+import engine.data.Dataset;
+import engine.selection.*;
 
 public class MainFrame extends JFrame{
 	//attributes

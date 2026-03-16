@@ -1,18 +1,20 @@
 package ui;
 
 //imports classes from Backend packages(data, selection, and experiments)
-import data.DataService;
-import data.Dataset;
-import selection.SelectionRequest;
-import selection.SelectionResult;
-import selection.SelectionService;
-import experiments.ExperimentService;
+import engine.data.DataService;
+import engine.data.Dataset;
+import engine.data.DatasetType;
+import engine.selection.SelectionRequest;
+import engine.selection.SelectionResult;
+import engine.selection.SelectionService;
+import engine.experiments.ExperimentService;
 
 public class AppController {
 	//Service attributes
 	private DataService data;
 	private SelectionService selection;
 	private ExperimentService experiments;
+    
 	
 	//Contructor
 	public AppController() {
@@ -30,7 +32,7 @@ public class AppController {
         return data.loadCsv(path);
     }
 	//Generates a dataset
-    public Dataset generateDataset(data.DatasetType type, int size, long seed) {
+    public Dataset generateDataset(engine.data.DatasetType type, int size, long seed) {
         return data.generate(type, size, seed);
     }
     //Runs performance experiments comparing algorithms
