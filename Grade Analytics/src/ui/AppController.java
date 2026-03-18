@@ -20,7 +20,7 @@ public class AppController {
 	public AppController() {
 		data = new DataService();
 		selection = new SelectionService();
-		experiments = new ExperimentService();
+		experiments = new ExperimentService(data, selection);
 	}
 	//methods:
 	//Runs SelectionResult

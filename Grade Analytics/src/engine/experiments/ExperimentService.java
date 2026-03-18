@@ -4,14 +4,14 @@ import engine.data.DataService;
 import engine.data.Dataset;
 import engine.selection.SelectionService;
 import engine.selection.SelectionResult;
-import engine.selection.SelectionRequest;
+
 
 import java.io.*;
 
 public class ExperimentService
 {
     private DataService data;
-    provate SelectionService selection;
+    private SelectionService selection;
 
     public ExperimentService(DataService data, SelectionService selection)
     {

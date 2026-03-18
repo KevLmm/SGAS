@@ -4,13 +4,18 @@ import javax.swing.*;
 import java.awt.*;
 //imports Backend data and selection class
 import engine.data.Dataset;
+import engine.data.DataService;
+
 import engine.selection.*;
 
 public class MainFrame extends JFrame{
 	//attributes
 	private AppController controller;
+
 	//input(k value) and output(where results will be printed)
 	private JTextField kField;
+	private Dataset currentDataset;
+	
 	private JTextArea outputArea;
 	
 	/*
@@ -22,8 +27,8 @@ public class MainFrame extends JFrame{
 	 * Sets BorderLayout diving into North, 
 	 * South, East, West, and Center regions
 	 * */
-	public MainFrame() {
-		controller = new AppController();
+	public MainFrame(AppController controller) {
+		this.controller = controller;
 		setTitle("Student Grade Analytics");
 		setSize(600,400);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -37,9 +42,28 @@ public class MainFrame extends JFrame{
 		 * calls runSelection() to execute the algorithm
 		 */
 		JPanel inputPanel = new JPanel();
+
+		JButton loadCSVButton = new JButton("Load CSV");
+		inputPanel.add(loadCSVButton);
+	
+		loadCSVButton.addActionListener(e -> {
+			JFileChooser chooser = new JFileChooser();
+			int result = chooser.showOpenDialog(this);
+			if (result == JFileChooser.APPROVE_OPTION) {
+				String path = chooser.getSelectedFile().getAbsolutePath();
+				Dataset ds = controller.loadDataset(path);
+				currentDataset = ds;
+				outputArea.append("Loaded CSV dataset: " + ds.getName() + "\n");
+			}
+		});
+
+
+
+
 		inputPanel.add(new JLabel("k:"));
 		kField = new JTextField(5);
 		inputPanel.add(kField);
+
 		JButton runButton = new JButton("Run Selection");
 		inputPanel.add(runButton);
 		add(inputPanel, BorderLayout.NORTH);
@@ -48,13 +72,15 @@ public class MainFrame extends JFrame{
 		add(new JScrollPane(outputArea), BorderLayout.CENTER);
 		runButton.addActionListener(e -> runSelection());
 	}
+
+
 	//Reads user's input, then calls the controller and prints results
     private void runSelection() {
         try {
             int k = Integer.parseInt(kField.getText());
             //generates random test dataset for now
             Dataset ds = controller.generateDataset(
-                    data.DatasetType.RANDOM,
+                    engine.data.DatasetType.RANDOM,
                     100,
                     42
             );
@@ -78,7 +104,7 @@ public class MainFrame extends JFrame{
         }
     }
     //Shows windows by calling setVisible
-    public void show() {
+    public void open() {
         setVisible(true);
     }
 }

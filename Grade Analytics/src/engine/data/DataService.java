@@ -4,7 +4,6 @@ import java.util.*;
 
 public class DataService {
 
-    
 
     public static Dataset loadCsv(String path) {
         List<Integer> scores = new ArrayList<>();
